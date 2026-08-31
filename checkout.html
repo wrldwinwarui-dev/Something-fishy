@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | Something Fishy</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            🐟 <span>Something Fishy</span>
+        </div>
+
+    </header>
+
+
+    <main class="checkout-page">
+
+        <div class="checkout-box">
+
+            <h1>Complete Your Order 🐟</h1>
+
+            <p class="checkout-subtitle">
+                Enter your details before making payment.
+            </p>
+
+
+            <form id="checkoutForm">
+
+                <label for="customerName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Your full name"
+                    required
+                >
+
+
+                <label for="customerPhone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="07XXXXXXXX"
+                    required
+                >
+
+
+                <label for="customerLocation">
+                    Delivery Location
+                </label>
+
+                <input
+                    type="text"
+                    id="customerLocation"
+                    placeholder="Where should we deliver?"
+                    required
+                >
+
+
+                <h2>Your Order</h2>
+
+                <div id="checkoutItems"></div>
+
+
+                <div class="checkout-total">
+
+                    <span>Total</span>
+
+                    <strong id="checkoutTotal">
+                        KSh 0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="pay-btn">
+
+                    💳 Pay to Order
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <script src="checkout.js"></script>
+
+</body>
+
+</html>
