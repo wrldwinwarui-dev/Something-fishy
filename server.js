@@ -1,8 +1,12 @@
 const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv");
+const { MongoClient } = require("mongodb");
 
 dotenv.config();
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
+const db = mongoClient.db("something-fishy");
+const ordersCollection = db.collection("orders");
 
 const app = express();
 
