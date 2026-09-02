@@ -324,8 +324,36 @@ checkoutForm.addEventListener(
                             );
 
 
-                            window.location.href =
-                                "index.html";
+                           const whatsappNumber = "254745706464";
+
+const orderMessage =
+    "🐟 SOMETHING FISHY - PAID ORDER\n\n" +
+    "Customer: " + customerName + "\n" +
+    "Phone: " + mpesaPhone + "\n" +
+    "Location: " + customerLocation + "\n\n" +
+    "ORDER ITEMS:\n" +
+    savedCart.map(item =>
+        "• " +
+        item.name +
+        " — KSh " +
+        Number(item.price).toLocaleString()
+    ).join("\n") +
+    "\n\n" +
+    "TOTAL: KSh " +
+    savedTotal.toLocaleString() +
+    "\n" +
+    "M-PESA RECEIPT: " +
+    status.receipt +
+    "\n\n" +
+    "✅ PAYMENT CONFIRMED";
+
+const whatsappURL =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(orderMessage);
+
+window.location.href = whatsappURL;
 
 
                             break;
