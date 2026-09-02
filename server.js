@@ -236,7 +236,7 @@ res.json({
 // M-PESA CALLBACK
 // ================================
 
-app.post("/api/mpesa/callback", (req, res) => {
+app.post("/api/mpesa/callback", async (req, res) => {
     console.log(
         "M-Pesa Callback:",
         JSON.stringify(req.body, null, 2)
@@ -279,19 +279,23 @@ app.post("/api/mpesa/callback", (req, res) => {
         transactionDate: metadata.TransactionDate
     });
 
-    // Mark order as PAID
-    const order = orders.get(orderId);
+    // Mark order as PAID in MongoDB
+if (orderId) {
 
-    if (order) {
-        order.status = "PAID";
-        order.mpesaReceipt = metadata.MpesaReceiptNumber;
-        order.paidAmount = metadata.Amount;
-        order.transactionDate = metadata.TransactionDate;
+    await ordersCollection.updateOne(
+        { orderId: orderId },
+        {
+            $set: {
+                status: "PAID",
+                mpesaReceipt: metadata.MpesaReceiptNumber,
+                paidAmount: metadata.Amount,
+                transactionDate: metadata.TransactionDate
+            }
+        }
+    );
 
-        orders.set(orderId, order);
-
-        console.log("✅ ORDER MARKED AS PAID:", orderId);
-    }
+    console.log("✅ ORDER MARKED AS PAID IN MONGODB:", orderId);
+}
 }
 
         console.log("✅ PAYMENT SUCCESSFUL");
