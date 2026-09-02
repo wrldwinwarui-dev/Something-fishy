@@ -10,9 +10,40 @@ const app = express();
 const paymentStatuses = new Map();
 const checkoutToOrder = new Map();
 
+// Store customer orders
+const orders = new Map();
+
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// ================================
+// SAVE CUSTOMER ORDER
+// ================================
+
+app.post("/api/orders", (req, res) => {
+
+    const order = req.body;
+
+    if (!order.orderId || !order.customerName || !order.phone || !order.items) {
+        return res.status(400).json({
+            success: false,
+            message: "Incomplete order information."
+        });
+    }
+
+    orders.set(order.orderId, {
+        ...order,
+        status: "pending",
+        createdAt: new Date().toISOString()
+    });
+
+    console.log("📦 ORDER SAVED:", order.orderId);
+
+    res.json({
+        success: true,
+        message: "Order saved successfully."
+    });
+});
 
 // ================================
 // M-PESA ACCESS TOKEN
@@ -216,16 +247,31 @@ app.post("/api/mpesa/callback", (req, res) => {
             });
         }
 
-        if (orderId) {
-            paymentStatuses.set(orderId, {
-                status: "success",
-                checkoutRequestId: checkoutRequestId,
-                receipt: metadata.MpesaReceiptNumber,
-                amount: metadata.Amount,
-                phone: metadata.PhoneNumber,
-                transactionDate: metadata.TransactionDate
-            });
-        }
+       if (orderId) {
+
+    paymentStatuses.set(orderId, {
+        status: "success",
+        checkoutRequestId: checkoutRequestId,
+        receipt: metadata.MpesaReceiptNumber,
+        amount: metadata.Amount,
+        phone: metadata.PhoneNumber,
+        transactionDate: metadata.TransactionDate
+    });
+
+    // Mark order as PAID
+    const order = orders.get(orderId);
+
+    if (order) {
+        order.status = "PAID";
+        order.mpesaReceipt = metadata.MpesaReceiptNumber;
+        order.paidAmount = metadata.Amount;
+        order.transactionDate = metadata.TransactionDate;
+
+        orders.set(orderId, order);
+
+        console.log("✅ ORDER MARKED AS PAID:", orderId);
+    }
+}
 
         console.log("✅ PAYMENT SUCCESSFUL");
         console.log("ORDER ID:", orderId);
@@ -252,6 +298,20 @@ app.post("/api/mpesa/callback", (req, res) => {
     });
 });
 
+// ================================
+// GET ALL ORDERS
+// ================================
+
+app.get("/api/orders", (req, res) => {
+
+    const allOrders = Array.from(orders.values());
+
+    res.json({
+        success: true,
+        orders: allOrders
+    });
+
+});
 
 // ================================
 // SERVER
