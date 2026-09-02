@@ -122,10 +122,9 @@
 </div>
 
 <script>
-   async function loadOrders() {
+async function loadOrders() {
 
-    const ordersContainer =
-        document.getElementById("orders");
+    const ordersContainer = document.getElementById("orders");
 
     ordersContainer.innerHTML = `
         <div class="empty">
@@ -137,67 +136,68 @@
 
         const password = sessionStorage.getItem("adminPassword");
 
-const response =
-    await fetch("/api/orders", {
-        headers: {
-            "x-admin-password": password
+        if (!password) {
+            ordersContainer.innerHTML = `
+                <div class="empty">
+                    🔐 Admin access required.
+                </div>
+            `;
+            return;
         }
-    });
 
-       const result = await response.json();
+        const response = await fetch("/api/orders", {
+            headers: {
+                "x-admin-password": password
+            }
+        });
 
-if (response.status === 401) {
-    ordersContainer.innerHTML = `
-        <div class="empty">
-            ❌ Wrong Admin Password
-        </div>
-    `;
-    return;
-}
+        const result = await response.json();
 
-if (!result.success) {
-    ordersContainer.innerHTML = `
-        <div class="empty">
-            ❌ Could not load orders.
-        </div>
-    `;
-    return;
-}
+        if (response.status === 401) {
+            sessionStorage.removeItem("adminPassword");
 
-if (result.orders.length === 0) {
-    ordersContainer.innerHTML = `
-        <div class="empty">
-            <h3>No orders yet 🐟</h3>
-            <p>Paid customer orders will appear here.</p>
-        </div>
-    `;
-    return;
-}
+            ordersContainer.innerHTML = `
+                <div class="empty">
+                    ❌ Wrong Admin Password
+                </div>
+            `;
+            return;
+        }
+
+        if (!result.success) {
+            ordersContainer.innerHTML = `
+                <div class="empty">
+                    ❌ Could not load orders.
+                </div>
+            `;
+            return;
+        }
+
+        if (result.orders.length === 0) {
             ordersContainer.innerHTML = `
                 <div class="empty">
                     <h3>No orders yet 🐟</h3>
                     <p>Paid customer orders will appear here.</p>
                 </div>
             `;
-
             return;
         }
 
         ordersContainer.innerHTML = "";
 
-        result.orders.reverse().forEach(order => {
+        result.orders.slice().reverse().forEach(order => {
 
             const items = order.items.map(item =>
                 `• ${item.name} — KSh ${Number(item.price).toLocaleString()}`
             ).join("<br>");
 
-            const card =
-                document.createElement("div");
+            const card = document.createElement("div");
 
             card.className = "order-card";
 
             card.innerHTML = `
                 <div class="order-header">
+
                     <div>
                         <h3>🧾 ${order.orderId}</h3>
                     </div>
@@ -207,6 +207,7 @@ if (result.orders.length === 0) {
                             ? "✅ PAID"
                             : "⏳ PENDING"}
                     </div>
+
                 </div>
 
                 <div class="order-details">
@@ -261,19 +262,23 @@ if (result.orders.length === 0) {
     }
 }
 
+
 const adminPassword = prompt("Enter Admin Password:");
 
 if (!adminPassword) {
+
     document.getElementById("orders").innerHTML = `
         <div class="empty">
             🔐 Admin access required.
         </div>
     `;
+
 } else {
+
     sessionStorage.setItem("adminPassword", adminPassword);
+
     loadOrders();
 }
 </script>
-
 </body>
 </html>
