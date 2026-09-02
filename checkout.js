@@ -147,6 +147,14 @@ checkoutForm.addEventListener(
         const orderId =
             "SF-" + Date.now();
 
+        const orderData = {
+    orderId: orderId,
+    customerName: customerName,
+    phone: mpesaPhone,
+    location: customerLocation,
+    items: savedCart,
+    amount: savedTotal
+};
 
         const paymentButton =
             checkoutForm.querySelector(".pay-btn");
@@ -162,6 +170,24 @@ checkoutForm.addEventListener(
         // START PAYMENT
         // ================================
 
+// Save order on the server
+const orderResponse = await fetch("/api/orders", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(orderData)
+});
+
+const orderResult = await orderResponse.json();
+
+if (!orderResult.success) {
+    alert("Could not save your order. Please try again.");
+    paymentButton.disabled = false;
+    paymentButton.textContent = "💳 Pay to Order";
+    return;
+}
+        
         try {
 
             const response =
