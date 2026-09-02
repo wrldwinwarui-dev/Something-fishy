@@ -135,8 +135,14 @@
 
     try {
 
-        const response =
-            await fetch("/api/orders");
+        const password = sessionStorage.getItem("adminPassword");
+
+const response =
+    await fetch("/api/orders", {
+        headers: {
+            "x-admin-password": password
+        }
+    });
 
         const result =
             await response.json();
@@ -231,7 +237,18 @@
     }
 }
 
-loadOrders();
+const adminPassword = prompt("Enter Admin Password:");
+
+if (!adminPassword) {
+    document.getElementById("orders").innerHTML = `
+        <div class="empty">
+            🔐 Admin access required.
+        </div>
+    `;
+} else {
+    sessionStorage.setItem("adminPassword", adminPassword);
+    loadOrders();
+}
 </script>
 
 </body>
