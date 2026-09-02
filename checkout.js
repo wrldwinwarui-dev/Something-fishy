@@ -2,37 +2,24 @@
 // SOMETHING FISHY - CHECKOUT
 // ================================
 
-
-// LOAD CART FROM LOCAL STORAGE
 const savedCart =
     JSON.parse(localStorage.getItem("somethingFishyCart")) || [];
 
-
-// LOAD TOTAL FROM LOCAL STORAGE
 const savedTotal =
     Number(localStorage.getItem("somethingFishyTotal")) || 0;
 
-
-// GET HTML ELEMENTS
 const checkoutItems =
     document.getElementById("checkoutItems");
 
 const checkoutTotal =
     document.getElementById("checkoutTotal");
 
-
-// ================================
-// DISPLAY ORDER ITEMS
-// ================================
-
 checkoutItems.innerHTML = "";
-
 
 if (savedCart.length === 0) {
 
-    checkoutItems.innerHTML = `
-        <p>Your cart is empty 🛒</p>
-    `;
+    checkoutItems.innerHTML =
+        `<p>Your cart is empty 🛒</p>`;
 
 } else {
 
@@ -41,7 +28,8 @@ if (savedCart.length === 0) {
         const div =
             document.createElement("div");
 
-        div.className = "checkout-item";
+        div.className =
+            "checkout-item";
 
         div.innerHTML = `
             <div>
@@ -52,27 +40,14 @@ if (savedCart.length === 0) {
         `;
 
         checkoutItems.appendChild(div);
-
     });
-
 }
-
-
-// ================================
-// DISPLAY TOTAL
-// ================================
 
 checkoutTotal.textContent =
     "KSh " + savedTotal.toLocaleString();
 
-
-// ================================
-// CHECKOUT FORM
-// ================================
-
 const checkoutForm =
     document.getElementById("checkoutForm");
-
 
 checkoutForm.addEventListener(
     "submit",
@@ -80,24 +55,17 @@ checkoutForm.addEventListener(
 
         event.preventDefault();
 
-
-        // ================================
-        // GET CUSTOMER DETAILS
-        // ================================
-
         const customerName =
             document
                 .getElementById("customerName")
                 .value
                 .trim();
 
-
         const customerPhone =
             document
                 .getElementById("customerPhone")
                 .value
                 .trim();
-
 
         const customerLocation =
             document
@@ -107,85 +75,59 @@ checkoutForm.addEventListener(
 
 
         // ================================
-        // VALIDATE DETAILS
+        // VALIDATION
         // ================================
 
         if (!customerName) {
 
             alert("Please enter your full name.");
-
             return;
         }
-
 
         if (!customerPhone) {
 
             alert("Please enter your phone number.");
-
             return;
         }
-
 
         if (!customerLocation) {
 
             alert("Please enter your delivery location.");
-
             return;
         }
-
-
-        // ================================
-        // CHECK CART
-        // ================================
 
         if (savedCart.length === 0) {
 
             alert("Your cart is empty 🛒");
-
             return;
         }
-
 
         if (savedTotal <= 0) {
 
             alert("Invalid order total.");
-
             return;
         }
 
 
         // ================================
-        // CONVERT PHONE NUMBER
+        // FORMAT PHONE NUMBER
         // ================================
 
         let mpesaPhone =
             customerPhone.replace(/\s+/g, "");
-
-
-        // 07XXXXXXXX → 2547XXXXXXXX
 
         if (mpesaPhone.startsWith("0")) {
 
             mpesaPhone =
                 "254" +
                 mpesaPhone.substring(1);
-
         }
-
-
-        // +2547XXXXXXXX → 2547XXXXXXXX
 
         if (mpesaPhone.startsWith("+254")) {
 
             mpesaPhone =
                 mpesaPhone.substring(1);
-
         }
-
-
-        // ================================
-        // VALIDATE KENYAN NUMBER
-        // ================================
 
         if (!/^2547\d{8}$/.test(mpesaPhone)) {
 
@@ -206,10 +148,6 @@ checkoutForm.addEventListener(
             "SF-" + Date.now();
 
 
-        // ================================
-        // GET PAYMENT BUTTON
-        // ================================
-
         const paymentButton =
             checkoutForm.querySelector(".pay-btn");
 
@@ -221,7 +159,7 @@ checkoutForm.addEventListener(
 
 
         // ================================
-        // SEND M-PESA REQUEST
+        // START PAYMENT
         // ================================
 
         try {
@@ -230,7 +168,6 @@ checkoutForm.addEventListener(
                 await fetch(
                     "/api/mpesa/stkpush",
                     {
-
                         method: "POST",
 
                         headers: {
@@ -239,18 +176,10 @@ checkoutForm.addEventListener(
                         },
 
                         body: JSON.stringify({
-
-                            phone:
-                                mpesaPhone,
-
-                            amount:
-                                savedTotal,
-
-                            orderId:
-                                orderId
-
+                            phone: mpesaPhone,
+                            amount: savedTotal,
+                            orderId: orderId
                         })
-
                     }
                 );
 
@@ -266,51 +195,203 @@ checkoutForm.addEventListener(
 
 
             // ================================
-            // PAYMENT REQUEST SUCCESS
+            // PAYMENT REQUEST SENT
             // ================================
 
             if (result.success) {
 
+                localStorage.setItem(
+                    "somethingFishyCustomer",
+                    JSON.stringify({
+                        name: customerName,
+                        phone: mpesaPhone,
+                        location: customerLocation,
+                        orderId: orderId,
+                        amount: savedTotal
+                    })
+                );
+
+
                 paymentButton.textContent =
-                    "✅ Payment Request Sent";
+                    "⏳ Waiting for Payment...";
 
 
                 alert(
                     "Payment request sent successfully! 📱\n\n" +
-
-                    "Amount: KSh " +
-                    savedTotal.toLocaleString() +
-
-                    "\n\n" +
-
-                    "Check your phone and enter your M-Pesa PIN."
+                    "Check your phone and enter your M-Pesa PIN.\n\n" +
+                    "The website will automatically confirm your payment."
                 );
 
 
-                // Save customer information
-                // for the order
+                // ================================
+                // WAIT FOR PAYMENT CONFIRMATION
+                // ================================
 
-                localStorage.setItem(
-                    "somethingFishyCustomer",
-                    JSON.stringify({
+                let paymentConfirmed =
+                    false;
 
-                        name:
-                            customerName,
 
-                        phone:
-                            mpesaPhone,
+                for (
+                    let attempt = 0;
+                    attempt < 45;
+                    attempt++
+                ) {
 
-                        location:
-                            customerLocation,
+                    await new Promise(
+                        resolve =>
+                            setTimeout(
+                                resolve,
+                                2000
+                            )
+                    );
 
-                        orderId:
-                            orderId,
 
-                        amount:
-                            savedTotal
+                    try {
 
-                    })
-                );
+                        const statusResponse =
+                            await fetch(
+                                `/api/mpesa/status/${encodeURIComponent(orderId)}`
+                            );
+
+
+                        const status =
+                            await statusResponse.json();
+
+
+                        console.log(
+                            "Payment Status:",
+                            status
+                        );
+
+
+                        // ================================
+                        // PAYMENT SUCCESS
+                        // ================================
+
+                        if (
+                            status.status ===
+                            "success"
+                        ) {
+
+                            paymentConfirmed =
+                                true;
+
+
+                            localStorage.setItem(
+                                "somethingFishyLastOrder",
+                                JSON.stringify({
+                                    name:
+                                        customerName,
+
+                                    phone:
+                                        mpesaPhone,
+
+                                    location:
+                                        customerLocation,
+
+                                    orderId:
+                                        orderId,
+
+                                    amount:
+                                        savedTotal,
+
+                                    receipt:
+                                        status.receipt
+                                })
+                            );
+
+
+                            // Clear cart
+                            localStorage.removeItem(
+                                "somethingFishyCart"
+                            );
+
+                            localStorage.removeItem(
+                                "somethingFishyTotal"
+                            );
+
+
+                            paymentButton.textContent =
+                                "✅ Order Confirmed";
+
+
+                            alert(
+                                "🎉 PAYMENT SUCCESSFUL!\n\n" +
+                                "M-Pesa Receipt: " +
+                                status.receipt +
+                                "\n\n" +
+                                "Your Something Fishy order has been confirmed! 🐟"
+                            );
+
+
+                            window.location.href =
+                                "index.html";
+
+
+                            break;
+                        }
+
+
+                        // ================================
+                        // PAYMENT FAILED
+                        // ================================
+
+                        if (
+                            status.status ===
+                            "failed"
+                        ) {
+
+                            paymentConfirmed =
+                                true;
+
+
+                            alert(
+                                "❌ Payment was not completed.\n\n" +
+                                (
+                                    status.message ||
+                                    "Please try again."
+                                )
+                            );
+
+
+                            paymentButton.disabled =
+                                false;
+
+                            paymentButton.textContent =
+                                "💳 Pay to Order";
+
+
+                            break;
+                        }
+
+                    } catch (statusError) {
+
+                        console.error(
+                            "Payment status error:",
+                            statusError
+                        );
+                    }
+                }
+
+
+                // ================================
+                // PAYMENT NOT CONFIRMED
+                // ================================
+
+                if (!paymentConfirmed) {
+
+                    alert(
+                        "⏳ We could not confirm your payment yet.\n\n" +
+                        "Please check your M-Pesa messages before trying again."
+                    );
+
+
+                    paymentButton.disabled =
+                        false;
+
+                    paymentButton.textContent =
+                        "💳 Pay to Order";
+                }
 
 
             } else {
