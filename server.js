@@ -13,7 +13,7 @@ const paymentStatuses = new Map();
 const checkoutToOrder = new Map();
 
 // Store customer orders
-const app = express();
+
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
