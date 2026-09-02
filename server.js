@@ -11,7 +11,7 @@ const paymentStatuses = new Map();
 const checkoutToOrder = new Map();
 
 app.use(express.json());
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname));
 
 
 // ================================
