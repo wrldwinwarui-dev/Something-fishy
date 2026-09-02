@@ -6,6 +6,8 @@ dotenv.config();
 
 const app = express();
 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
 // Store M-Pesa payment status
 const paymentStatuses = new Map();
 const checkoutToOrder = new Map();
@@ -15,6 +17,17 @@ const orders = new Map();
 
 app.use(express.json());
 app.use(express.static(__dirname));
+
+app.get("/admin-orders.html", (req, res) => {
+
+    const password = req.headers["x-admin-password"];
+
+    if (password !== ADMIN_PASSWORD) {
+        return res.status(401).send("Unauthorized");
+    }
+
+    res.sendFile(__dirname + "/admin-orders.html");
+});
 
 // ================================
 // SAVE CUSTOMER ORDER
