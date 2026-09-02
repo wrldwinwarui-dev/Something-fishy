@@ -6,8 +6,12 @@ dotenv.config();
 
 const app = express();
 
+// Store M-Pesa payment status
+const paymentStatuses = new Map();
+const checkoutToOrder = new Map();
+
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/public"));
 
 
 // ================================
@@ -133,10 +137,21 @@ console.log("TIMESTAMP:", timestamp);
             );
 
 
-        res.json({
-            success: true,
-            data: response.data
-        });
+        const checkoutRequestId = response.data.CheckoutRequestID;
+
+paymentStatuses.set(orderId, {
+    status: "pending",
+    checkoutRequestId: checkoutRequestId,
+    merchantRequestId: response.data.MerchantRequestID
+});
+
+checkoutToOrder.set(checkoutRequestId, orderId);
+
+res.json({
+    success: true,
+    data: response.data,
+    orderId: orderId
+});
 
 
        } catch (error) {
@@ -170,17 +185,71 @@ console.log("TIMESTAMP:", timestamp);
 // ================================
 
 app.post("/api/mpesa/callback", (req, res) => {
-
     console.log(
         "M-Pesa Callback:",
         JSON.stringify(req.body, null, 2)
     );
 
+    const callback =
+        req.body?.Body?.stkCallback;
+
+    if (!callback) {
+        return res.json({
+            ResultCode: 0,
+            ResultDesc: "Accepted"
+        });
+    }
+
+    const checkoutRequestId =
+        callback.CheckoutRequestID;
+
+    const orderId =
+        checkoutToOrder.get(checkoutRequestId);
+
+    if (callback.ResultCode === 0) {
+
+        let metadata = {};
+
+        if (callback.CallbackMetadata?.Item) {
+            callback.CallbackMetadata.Item.forEach(item => {
+                metadata[item.Name] = item.Value;
+            });
+        }
+
+        if (orderId) {
+            paymentStatuses.set(orderId, {
+                status: "success",
+                checkoutRequestId: checkoutRequestId,
+                receipt: metadata.MpesaReceiptNumber,
+                amount: metadata.Amount,
+                phone: metadata.PhoneNumber,
+                transactionDate: metadata.TransactionDate
+            });
+        }
+
+        console.log("✅ PAYMENT SUCCESSFUL");
+        console.log("ORDER ID:", orderId);
+        console.log("RECEIPT:", metadata.MpesaReceiptNumber);
+
+    } else {
+
+        if (orderId) {
+            paymentStatuses.set(orderId, {
+                status: "failed",
+                checkoutRequestId: checkoutRequestId,
+                message: callback.ResultDesc
+            });
+        }
+
+        console.log("❌ PAYMENT FAILED");
+        console.log("ORDER ID:", orderId);
+        console.log("REASON:", callback.ResultDesc);
+    }
+
     res.json({
         ResultCode: 0,
         ResultDesc: "Accepted"
     });
-
 });
 
 
@@ -188,6 +257,24 @@ app.post("/api/mpesa/callback", (req, res) => {
 // SERVER
 // ================================
 
+// Check payment status
+app.get("/api/mpesa/status/:orderId", (req, res) => {
+    const orderId = req.params.orderId;
+
+    const payment = paymentStatuses.get(orderId);
+
+    if (!payment) {
+        return res.status(404).json({
+            success: false,
+            status: "not_found"
+        });
+    }
+
+    res.json({
+        success: true,
+        ...payment
+    });
+});
 const PORT =
     process.env.PORT || 3000;
 
