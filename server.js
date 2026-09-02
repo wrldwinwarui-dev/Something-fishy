@@ -12,10 +12,6 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const paymentStatuses = new Map();
 const checkoutToOrder = new Map();
 
-// Store M-Pesa payment status
-const paymentStatuses = new Map();
-const checkoutToOrder = new Map();
-
 // Store customer orders
 const orders = new Map();
 
