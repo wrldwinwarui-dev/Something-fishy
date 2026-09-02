@@ -21,35 +21,51 @@ const orders = new Map();
 
 app.use(express.json());
 app.use(express.static(__dirname));
+
 // ================================
 // SAVE CUSTOMER ORDER
 // ================================
 
-app.post("/api/orders", (req, res) => {
+app.post("/api/orders", async (req, res) => {
 
-    const order = req.body;
+    try {
 
-    if (!order.orderId || !order.customerName || !order.phone || !order.items) {
-        return res.status(400).json({
-            success: false,
-            message: "Incomplete order information."
+        const order = req.body;
+
+        if (!order.orderId || !order.customerName || !order.phone || !order.items) {
+            return res.status(400).json({
+                success: false,
+                message: "Incomplete order information."
+            });
+        }
+
+        const savedOrder = {
+            ...order,
+            status: "pending",
+            createdAt: new Date()
+        };
+
+        await ordersCollection.insertOne(savedOrder);
+
+        console.log("📦 ORDER SAVED TO MONGODB:", order.orderId);
+
+        res.json({
+            success: true,
+            message: "Order saved successfully."
         });
+
+    } catch (error) {
+
+        console.error("❌ MONGODB SAVE ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Could not save order."
+        });
+
     }
 
-    orders.set(order.orderId, {
-        ...order,
-        status: "pending",
-        createdAt: new Date().toISOString()
-    });
-
-    console.log("📦 ORDER SAVED:", order.orderId);
-
-    res.json({
-        success: true,
-        message: "Order saved successfully."
-    });
 });
-
 // ================================
 // M-PESA ACCESS TOKEN
 // ================================
