@@ -144,11 +144,35 @@ const response =
         }
     });
 
-        const result =
-            await response.json();
+       const result = await response.json();
 
-        if (!result.success || result.orders.length === 0) {
+if (response.status === 401) {
+    ordersContainer.innerHTML = `
+        <div class="empty">
+            ❌ Wrong Admin Password
+        </div>
+    `;
+    return;
+}
 
+if (!result.success) {
+    ordersContainer.innerHTML = `
+        <div class="empty">
+            ❌ Could not load orders.
+        </div>
+    `;
+    return;
+}
+
+if (result.orders.length === 0) {
+    ordersContainer.innerHTML = `
+        <div class="empty">
+            <h3>No orders yet 🐟</h3>
+            <p>Paid customer orders will appear here.</p>
+        </div>
+    `;
+    return;
+}
             ordersContainer.innerHTML = `
                 <div class="empty">
                     <h3>No orders yet 🐟</h3>
