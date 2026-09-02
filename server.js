@@ -16,7 +16,6 @@ const checkoutToOrder = new Map();
 const orders = new Map();
 
 app.use(express.json());
-app.use(express.static(__dirname));
 
 app.get("/admin-orders.html", (req, res) => {
 
@@ -28,6 +27,8 @@ app.get("/admin-orders.html", (req, res) => {
 
     res.sendFile(__dirname + "/admin-orders.html");
 });
+
+app.use(express.static(__dirname));
 
 // ================================
 // SAVE CUSTOMER ORDER
@@ -316,6 +317,15 @@ app.post("/api/mpesa/callback", (req, res) => {
 // ================================
 
 app.get("/api/orders", (req, res) => {
+
+    const password = req.headers["x-admin-password"];
+
+    if (password !== ADMIN_PASSWORD) {
+        return res.status(401).json({
+            success: false,
+            message: "Unauthorized"
+        });
+    }
 
     const allOrders = Array.from(orders.values());
 
