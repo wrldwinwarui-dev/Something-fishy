@@ -335,7 +335,7 @@ if (orderId) {
 // GET ALL ORDERS
 // ================================
 
-app.get("/api/orders", (req, res) => {
+app.get("/api/orders", async (req, res) => {
 
     const password = req.headers["x-admin-password"];
 
@@ -346,15 +346,28 @@ app.get("/api/orders", (req, res) => {
         });
     }
 
-    const allOrders = Array.from(orders.values());
+    try {
 
-    res.json({
-        success: true,
-        orders: allOrders
-    });
+        const allOrders = await ordersCollection
+            .find({})
+            .sort({ createdAt: -1 })
+            .toArray();
 
+        res.json({
+            success: true,
+            orders: allOrders
+        });
+
+    } catch (error) {
+
+        console.error("❌ MONGODB LOAD ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Could not load orders."
+        });
+    }
 });
-
 // ================================
 // SERVER
 // ================================
