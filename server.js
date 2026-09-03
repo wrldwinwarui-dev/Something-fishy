@@ -8,6 +8,14 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI);
 const db = mongoClient.db("something-fishy");
 const ordersCollection = db.collection("orders");
 
+mongoClient.connect()
+    .then(() => {
+        console.log("✅ MONGODB CONNECTED");
+    })
+    .catch((error) => {
+        console.error("❌ MONGODB CONNECTION ERROR:", error);
+    });
+
 const app = express();
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
