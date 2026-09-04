@@ -13,20 +13,15 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #ffffff;
-    color: #101828;
+    font-family: Arial, sans-serif;
+    color: #102a43;
+    background: white;
+
+    background-image: url("images/website-bg.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
 }
-
-a {
-    text-decoration: none;
-}
-
-button {
-    font-family: inherit;
-}
-
-
 /* =========================================================
    NAVBAR
    ========================================================= */
@@ -34,25 +29,67 @@ button {
 .navbar {
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 82px;
+    height: 80px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 6%;
+    padding: 0 7%;
 
-    background: rgba(3, 13, 28, 0.96);
-    backdrop-filter: blur(10px);
+    background: rgba(2, 12, 28, 0.92);
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 
     z-index: 1000;
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
 
+.logo span {
+    color: #1687ff;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #1687ff;
+}
+
+.cart-btn {
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cart-btn:hover {
+    background: #126ee8;
+}
+
+#cartCount {
+    background: #126ee8;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 50%;
+}
 /* LOGO */
 
 .logo {
