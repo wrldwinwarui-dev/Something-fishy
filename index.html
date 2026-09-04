@@ -11,175 +11,331 @@
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
     <header class="navbar">
+
         <div class="logo">
-            🐟 <span>Something Fishy</span>
+            <div class="fish-logo">🐟</div>
+
+            <div class="brand">
+                <strong>SOMETHING <span>FISHY</span></strong>
+                <small>Fresh. Tasty. Always!</small>
+            </div>
         </div>
 
         <nav>
-            <a href="#home">Home</a>
+            <a href="#home" class="active">Home</a>
             <a href="#menu">Menu</a>
-            <a href="#about">About</a>
+            <a href="#about">About Us</a>
+            <a href="#how-to-order">How to Order</a>
             <a href="#contact">Contact</a>
         </nav>
 
-        <button class="cart-btn" onclick="openCart()">
-            🛒 Cart <span id="cartCount">0</span>
-        </button>
+        <div class="nav-actions">
+
+            <button class="cart-btn" onclick="openCart()">
+                🛒 Cart (<span id="cartCount">0</span>)
+            </button>
+
+            <a
+                class="whatsapp-btn"
+                href="https://wa.me/254745706464"
+                target="_blank"
+            >
+                💬 Order on WhatsApp
+            </a>
+
+        </div>
+
     </header>
 
 
-    <!-- HERO -->
+    <!-- ================= HERO ================= -->
     <section id="home" class="hero">
 
+        <div class="hero-overlay"></div>
+
         <div class="hero-content">
-            <p class="small-title">WELCOME TO</p>
 
-            <h1>
-                SOMETHING <span>FISHY</span>
-            </h1>
-
-            <p>
-                Fresh seafood. Great taste.  
-                Delivered straight to your table.
+            <p class="welcome">
+                WELCOME TO
+                <span class="wave">〰〰〰</span>
             </p>
 
-            <a href="#menu" class="hero-btn">
-                Explore Our Menu 🍽️
-            </a>
+            <h1>
+                SOMETHING<br>
+                <span>FISHY</span>
+            </h1>
+
+            <h2>Fresh Seafood, Great Taste!</h2>
+
+            <p class="hero-description">
+                We serve the freshest fish and seafood
+                with love and perfect spices.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#menu" class="primary-btn">
+                    🛒 VIEW MENU
+                </a>
+
+                <a
+                    href="https://wa.me/254745706464"
+                    target="_blank"
+                    class="outline-btn"
+                >
+                    💬 ORDER ON WHATSAPP
+                </a>
+
+            </div>
+
+
+            <!-- FEATURES -->
+            <div class="hero-features">
+
+                <div class="feature">
+                    <span>🐟</span>
+                    <div>
+                        <strong>FRESH SEAFOOD</strong>
+                        <small>Daily from trusted suppliers</small>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <span>💧</span>
+                    <div>
+                        <strong>PERFECTLY SPICED</strong>
+                        <small>Tasty & full of flavor.</small>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <span>🛵</span>
+                    <div>
+                        <strong>FAST DELIVERY</strong>
+                        <small>At your doorstep</small>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </section>
 
 
-    <!-- MENU -->
+    <!-- ================= MENU ================= -->
     <section id="menu" class="menu-section">
 
         <div class="section-heading">
-            <p>OUR SPECIALS</p>
-            <h2>Fresh From The Ocean </h2>
+
+            <p>OUR MENU</p>
+
+            <h2>Popular Dishes</h2>
+
+            <div class="section-wave">〰〰〰</div>
+
         </div>
+
 
         <div class="menu-grid">
 
-            <!-- FOOD 1 -->
+
+            <!-- FRIED TILAPIA -->
             <div class="food-card">
 
-                <div class="food-image">
-                    
-                </div>
+                <div
+                    class="food-image fried-tilapia"
+                    role="img"
+                    aria-label="Fried Tilapia"
+                ></div>
 
                 <div class="food-info">
+
+                    <h3>Fried Tilapia</h3>
+
+                    <p>
+                        Crispy fried tilapia served
+                        with kachumbari.
+                    </p>
+
+                    <div class="food-bottom">
+
+                        <strong>KSh 450</strong>
+
+                        <button
+                            onclick="addToCart('Fried Tilapia', 450)"
+                        >
+                            🛒 Add to Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- GRILLED FISH -->
+            <div class="food-card">
+
+                <div
+                    class="food-image grilled-fish"
+                    role="img"
+                    aria-label="Grilled Fish"
+                ></div>
+
+                <div class="food-info">
+
                     <h3>Grilled Fish</h3>
 
                     <p>
-                        Freshly grilled fish served with chips
-                        and fresh vegetables.
+                        Well grilled fish served
+                        with ugali or chips.
                     </p>
 
                     <div class="food-bottom">
-                        <strong>KSh 6</strong>
 
-                        <button onclick="addToCart('Grilled Fish', 6)">
-                            Add +
+                        <strong>KSh 500</strong>
+
+                        <button
+                            onclick="addToCart('Grilled Fish', 500)"
+                        >
+                            🛒 Add to Cart
                         </button>
+
                     </div>
+
                 </div>
 
             </div>
 
 
-            <!-- FOOD 2 -->
+            <!-- PRAWNS -->
             <div class="food-card">
 
-                <div class="food-image">
-                    
-                </div>
+                <div
+                    class="food-image prawns"
+                    role="img"
+                    aria-label="Prawns"
+                ></div>
 
                 <div class="food-info">
-                    <h3>Fried Prawns</h3>
+
+                    <h3>Prawns</h3>
 
                     <p>
-                        Crispy golden prawns prepared with
-                        our special seafood spices.
+                        Delicious prawns cooked
+                        in special sauce.
                     </p>
 
                     <div class="food-bottom">
-                        <strong>KSh 850</strong>
 
-                        <button onclick="addToCart('Fried Prawns', 850)">
-                            Add +
+                        <strong>KSh 600</strong>
+
+                        <button
+                            onclick="addToCart('Prawns', 600)"
+                        >
+                            🛒 Add to Cart
                         </button>
+
                     </div>
+
                 </div>
 
             </div>
 
 
-            <!-- FOOD 3 -->
+            <!-- FISH AND CHIPS -->
             <div class="food-card">
 
-                <div class="food-image">
-                    
-                </div>
+                <div
+                    class="food-image fish-chips"
+                    role="img"
+                    aria-label="Fish and Chips"
+                ></div>
 
                 <div class="food-info">
-                    <h3>Calamari</h3>
 
-                    <p>
-                        Crispy calamari rings served with
-                        our signature sauce.
-                    </p>
-
-                    <div class="food-bottom">
-                        <strong>KSh 750</strong>
-
-                        <button onclick="addToCart('Calamari', 750)">
-                            Add +
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- FOOD 4 -->
-            <div class="food-card">
-
-                <div class="food-image">
-                    
-                </div>
-
-                <div class="food-info">
                     <h3>Fish & Chips</h3>
 
                     <p>
-                        Classic crispy fish served with
-                        golden chips.
+                        Crispy fish with chips
+                        and tartar sauce.
                     </p>
 
                     <div class="food-bottom">
-                        <strong>KSh 550</strong>
 
-                        <button onclick="addToCart('Fish & Chips', 550)">
-                            Add +
+                        <strong>KSh 400</strong>
+
+                        <button
+                            onclick="addToCart('Fish & Chips', 400)"
+                        >
+                            🛒 Add to Cart
                         </button>
+
                     </div>
+
                 </div>
 
             </div>
+
+
+            <!-- FISH SAMOSA -->
+            <div class="food-card">
+
+                <div
+                    class="food-image samosa-fish"
+                    role="img"
+                    aria-label="Fish Samosa"
+                ></div>
+
+                <div class="food-info">
+
+                    <h3>Samosa (Fish)</h3>
+
+                    <p>
+                        Crispy samosas filled
+                        with spiced fish.
+                    </p>
+
+                    <div class="food-bottom">
+
+                        <strong>KSh 100</strong>
+
+                        <button
+                            onclick="addToCart('Samosa (Fish)', 100)"
+                        >
+                            🛒 Add to Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-button-container">
+
+            <a href="#menu" class="primary-btn">
+                🛒 VIEW ALL MENU
+            </a>
 
         </div>
 
     </section>
 
 
-    <!-- ABOUT -->
+    <!-- ================= ABOUT ================= -->
     <section id="about" class="about">
 
-        <div>
-            <p class="small-title">ABOUT US</p>
+        <div class="about-content">
+
+            <p class="section-label">ABOUT US</p>
 
             <h2>
                 Good Food Has
@@ -189,35 +345,195 @@
             <p>
                 At Something Fishy, we believe seafood should be
                 fresh, delicious and prepared with passion.
-                Come enjoy the taste of the ocean.
+                From our kitchen to your table, every meal is
+                prepared with quality ingredients and perfect
+                spices.
             </p>
+
         </div>
 
     </section>
 
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact">
+    <!-- ================= HOW TO ORDER ================= -->
+    <section id="how-to-order" class="how-to-order">
 
-        <h2>Visit Something Fishy 🐟</h2>
+        <div class="section-heading">
 
-        <p>
-            Fresh seafood • Great atmosphere • Amazing taste
-        </p>
+            <p>HOW IT WORKS</p>
 
-        <button onclick="openCart()" class="contact-btn">
-            Order Now
-        </button>
+            <h2>How To Order</h2>
+
+            <div class="section-wave">〰〰〰</div>
+
+        </div>
+
+
+        <div class="order-steps">
+
+            <div class="order-step">
+
+                <div class="step-number">1</div>
+
+                <h3>Choose Your Food</h3>
+
+                <p>
+                    Browse our menu and add your
+                    favourite seafood to your cart.
+                </p>
+
+            </div>
+
+
+            <div class="order-step">
+
+                <div class="step-number">2</div>
+
+                <h3>Review Your Cart</h3>
+
+                <p>
+                    Check your items and confirm
+                    your order details.
+                </p>
+
+            </div>
+
+
+            <div class="order-step">
+
+                <div class="step-number">3</div>
+
+                <h3>Pay To Order</h3>
+
+                <p>
+                    Complete your M-Pesa payment
+                    securely before placing the order.
+                </p>
+
+            </div>
+
+
+            <div class="order-step">
+
+                <div class="step-number">4</div>
+
+                <h3>Enjoy Your Meal</h3>
+
+                <p>
+                    We prepare your order and get
+                    it ready for you.
+                </p>
+
+            </div>
+
+        </div>
 
     </section>
 
 
-    <!-- CART MODAL -->
+    <!-- ================= CONTACT / INFO ================= -->
+    <section id="contact" class="contact-section">
+
+        <div class="contact-grid">
+
+
+            <!-- LOCATION -->
+            <div class="contact-card">
+
+                <div class="contact-icon">📍</div>
+
+                <h3>Our Location</h3>
+
+                <p>
+                    Kiambu County, Thika Town<br>
+                    Street: Jomoko TIBS
+                </p>
+
+                <a
+                    href="https://maps.google.com/?q=Jomoko+TIBS+Thika+Kenya"
+                    target="_blank"
+                    class="small-btn"
+                >
+                    📍 View on Map
+                </a>
+
+            </div>
+
+
+            <!-- WHATSAPP -->
+            <div class="contact-card">
+
+                <div class="contact-icon">💬</div>
+
+                <h3>Order via WhatsApp</h3>
+
+                <p>
+                    Click the button and chat
+                    with us to place your order.
+                </p>
+
+                <a
+                    href="https://wa.me/254745706464"
+                    target="_blank"
+                    class="whatsapp-small-btn"
+                >
+                    💬 Chat on WhatsApp
+                </a>
+
+            </div>
+
+
+            <!-- HOURS -->
+            <div class="contact-card">
+
+                <div class="contact-icon">🕐</div>
+
+                <h3>Opening Hours</h3>
+
+                <p>
+                    Monday - Sunday<br>
+                    8:00 AM - 10:00 PM
+                </p>
+
+                <a href="#menu" class="small-btn">
+                    🍽️ View Details
+                </a>
+
+            </div>
+
+
+            <!-- DELIVERY -->
+            <div class="contact-card">
+
+                <div class="contact-icon">🛵</div>
+
+                <h3>Fast Delivery</h3>
+
+                <p>
+                    We deliver to your location
+                    as fast as we can.
+                </p>
+
+                <a href="#contact" class="small-btn">
+                    🛵 Learn More
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CART MODAL ================= -->
     <div id="cartModal" class="cart-modal">
 
         <div class="cart-box">
 
-            <button class="close-cart" onclick="closeCart()">
+            <button
+                class="close-cart"
+                onclick="closeCart()"
+            >
                 ✕
             </button>
 
@@ -226,11 +542,19 @@
             <div id="cartItems"></div>
 
             <div class="cart-total">
+
                 <span>Total</span>
-                <strong id="cartTotal">KSh 0</strong>
+
+                <strong id="cartTotal">
+                    KSh 0
+                </strong>
+
             </div>
 
-            <button class="pay-btn" onclick="payToOrder()">
+            <button
+                class="pay-btn"
+                onclick="payToOrder()"
+            >
                 💳 Pay to Order
             </button>
 
@@ -239,11 +563,25 @@
     </div>
 
 
+    <!-- ================= FOOTER ================= -->
     <footer>
-        <p>© 2026 Something Fishy. All Rights Reserved.</p>
+
+        <div class="footer-brand">
+            🐟 SOMETHING <span>FISHY</span>
+        </div>
+
+        <p>
+            Fresh. Tasty. Always!
+        </p>
+
+        <p class="copyright">
+            © 2026 Something Fishy. All Rights Reserved.
+        </p>
+
     </footer>
 
 
+    <!-- KEEP EXISTING JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>
