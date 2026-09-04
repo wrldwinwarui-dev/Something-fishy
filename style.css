@@ -230,46 +230,57 @@ nav a.active::after {
    ========================================================= */
 
 .hero {
-    position: relative;
-
-    min-height: 650px;
-    height: 100vh;
+    min-height: 540px;
 
     display: flex;
     align-items: center;
 
-    padding: 110px 7% 70px;
+    padding: 120px 7% 70px;
 
-    background-image: url("images/fish-hero.jpg");
-
-    background-size: cover;
-    background-position: center;
-
-    overflow: hidden;
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.88) 0%,
-            rgba(0, 0, 0, 0.67) 45%,
-            rgba(0, 0, 0, 0.25) 100%
-        );
+    background: transparent;
 }
 
 .hero-content {
-    position: relative;
-    z-index: 2;
-
-    max-width: 620px;
-
     color: white;
+    max-width: 550px;
 }
 
+.hero h1 {
+    font-size: clamp(50px, 7vw, 85px);
+    line-height: 0.95;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #1687ff;
+}
+
+.small-title {
+    color: #1687ff;
+    letter-spacing: 4px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-content > p:not(.small-title) {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 14px 25px;
+    background: #126ee8;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.hero-btn:hover {
+    background: #0b58bd;
+}
 
 /* WELCOME */
 
@@ -433,17 +444,93 @@ nav a.active::after {
    ========================================================= */
 
 .menu-section {
-    position: relative;
+    padding: 80px 7%;
+    background: rgba(255,255,255,0.97);
+}
 
-    padding: 70px 6%;
+.section-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
 
-    background:
-        radial-gradient(
-            circle at 10% 20%,
-            rgba(20, 125, 245, 0.05),
-            transparent 25%
-        ),
-        #ffffff;
+.section-heading p {
+    color: #126ee8;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.section-heading h2 {
+    font-size: 40px;
+    color: #10203a;
+    margin-top: 10px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+}
+
+.food-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    transition: 0.3s;
+}
+
+.food-card:hover {
+    transform: translateY(-7px);
+}
+
+.food-image {
+    height: 190px;
+
+    background-image: url("images/website-bg.png");
+    background-size: cover;
+    background-position: center;
+
+    background-color: #eee;
+}
+
+.food-info {
+    padding: 20px;
+}
+
+.food-info h3 {
+    font-size: 21px;
+    margin-bottom: 8px;
+}
+
+.food-info p {
+    color: #627d98;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.food-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.food-bottom strong {
+    color: #126ee8;
+    font-size: 19px;
+}
+
+.food-bottom button {
+    border: none;
+    background: #126ee8;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.food-bottom button:hover {
+    background: #0b58bd;
 }
 
 
