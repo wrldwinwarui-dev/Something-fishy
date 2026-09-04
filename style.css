@@ -1,3 +1,7 @@
+/* =========================================================
+   SOMETHING FISHY — MAIN STYLES
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,326 +13,857 @@ html {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f7fbfc;
-    color: #102a43;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #101828;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
 }
 
 
-/* NAVBAR */
+/* =========================================================
+   NAVBAR
+   ========================================================= */
 
 .navbar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    height: 75px;
+    height: 82px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 7%;
+    padding: 0 6%;
 
-    background: rgba(255, 255, 255, 0.96);
-
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    background: rgba(3, 13, 28, 0.96);
+    backdrop-filter: blur(10px);
 
     z-index: 1000;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+
+/* LOGO */
 
 .logo {
-    font-size: 22px;
-    font-weight: bold;
-    color: #0077b6;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: white;
 }
 
-.logo span {
-    color: #023e8a;
+.fish-logo {
+    font-size: 42px;
+    line-height: 1;
 }
+
+.brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand strong {
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.brand strong span {
+    color: #147df5;
+}
+
+.brand small {
+    margin-top: 3px;
+    color: white;
+    font-size: 12px;
+    font-style: italic;
+}
+
+
+/* NAVIGATION */
 
 nav {
     display: flex;
-    gap: 30px;
+    align-items: center;
+    gap: 28px;
 }
 
 nav a {
-    text-decoration: none;
-    color: #102a43;
-    font-weight: 600;
+    position: relative;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+
+    padding: 30px 0;
 }
 
-nav a:hover {
-    color: #0077b6;
+nav a:hover,
+nav a.active {
+    color: #1683ff;
 }
+
+nav a.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 3px;
+
+    background: #1683ff;
+}
+
+
+/* NAV ACTIONS */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+/* CART */
 
 .cart-btn {
-    border: none;
-    background: #0077b6;
+    border: 2px solid white;
+
+    background: transparent;
+
     color: white;
 
     padding: 11px 18px;
 
-    border-radius: 25px;
+    border-radius: 7px;
 
     cursor: pointer;
 
     font-weight: bold;
+
+    transition: 0.3s;
 }
 
-#cartCount {
+.cart-btn:hover {
     background: white;
-    color: #0077b6;
-
-    padding: 2px 7px;
-    border-radius: 50%;
-
-    margin-left: 5px;
+    color: #071426;
 }
 
 
-/* HERO */
+/* WHATSAPP */
+
+.whatsapp-btn {
+    background: #08c64f;
+
+    color: white;
+
+    padding: 13px 20px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+    background: #06a943;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .hero {
-    min-height: 100vh;
+    position: relative;
+
+    min-height: 650px;
+    height: 100vh;
 
     display: flex;
     align-items: center;
 
-    padding: 100px 8%;
+    padding: 110px 7% 70px;
 
-    background:
-        linear-gradient(
-            rgba(0, 30, 60, 0.65),
-            rgba(0, 30, 60, 0.65)
-        ),
-        url("images/fish-hero.jpg");
+    background-image: url("images/fish-hero.jpg");
 
     background-size: cover;
     background-position: center;
+
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.88) 0%,
+            rgba(0, 0, 0, 0.67) 45%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 620px;
+
     color: white;
-    max-width: 650px;
 }
 
-.small-title {
-    letter-spacing: 4px;
+
+/* WELCOME */
+
+.welcome {
+    color: #1683ff;
+
+    font-size: 15px;
+
     font-weight: bold;
-    color: #48cae4;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.wave {
+    color: #1683ff;
+    letter-spacing: -4px;
+}
+
+
+/* HERO TITLE */
+
+.hero h1 {
+    font-size: clamp(55px, 7vw, 90px);
+
+    line-height: 0.92;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 16px;
+}
+
+.hero h1 span {
+    color: #147df5;
+}
+
+
+/* HERO SUBTITLE */
+
+.hero h2 {
+    font-size: 29px;
+
+    font-style: italic;
+
+    font-family: Georgia, serif;
+
     margin-bottom: 15px;
 }
 
-.hero h1 {
-    font-size: clamp(50px, 8vw, 90px);
-    line-height: 0.95;
+.hero-description {
+    max-width: 390px;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
     margin-bottom: 25px;
 }
 
-.hero h1 span,
-.about h2 span {
-    color: #48cae4;
+
+/* HERO BUTTONS */
+
+.hero-buttons {
+    display: flex;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 32px;
 }
 
-.hero-content > p:not(.small-title) {
-    font-size: 19px;
-    line-height: 1.6;
-    margin-bottom: 30px;
+.primary-btn,
+.outline-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 23px;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+    transition: 0.3s;
 }
 
-.hero-btn,
-.contact-btn {
-    display: inline-block;
+.primary-btn {
+    background: #147df5;
+    color: white;
+}
 
-    padding: 15px 28px;
+.primary-btn:hover {
+    background: #0966d8;
 
-    background: #00b4d8;
+    transform: translateY(-2px);
+}
+
+.outline-btn {
+    border: 2px solid white;
 
     color: white;
 
-    text-decoration: none;
-
-    border-radius: 30px;
-
-    font-weight: bold;
-
-    border: none;
-
-    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
 }
 
-.hero-btn:hover,
-.contact-btn:hover {
-    background: #0077b6;
+.outline-btn:hover {
+    border-color: #147df5;
+
+    background: #147df5;
 }
 
 
-/* MENU */
+/* HERO FEATURES */
+
+.hero-features {
+    display: flex;
+
+    gap: 35px;
+
+    flex-wrap: wrap;
+}
+
+.feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.feature > span {
+    font-size: 27px;
+}
+
+.feature strong {
+    display: block;
+
+    font-size: 12px;
+
+    margin-bottom: 4px;
+}
+
+.feature small {
+    display: block;
+
+    color: #e3e8ee;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
 
 .menu-section {
-    padding: 100px 7%;
+    position: relative;
+
+    padding: 70px 6%;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(20, 125, 245, 0.05),
+            transparent 25%
+        ),
+        #ffffff;
 }
+
+
+/* SECTION HEADING */
 
 .section-heading {
     text-align: center;
-    margin-bottom: 50px;
+
+    margin-bottom: 32px;
 }
 
 .section-heading p {
-    color: #00b4d8;
-    letter-spacing: 3px;
+    color: #147df5;
+
     font-weight: bold;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
 }
 
 .section-heading h2 {
-    font-size: 40px;
-    margin-top: 10px;
+    color: #101828;
+
+    font-size: 36px;
+
+    margin-top: 8px;
 }
+
+.section-wave {
+    color: #147df5;
+
+    font-size: 25px;
+
+    margin-top: -3px;
+
+    letter-spacing: -5px;
+}
+
+
+/* MENU GRID */
 
 .menu-grid {
     display: grid;
 
     grid-template-columns:
-        repeat(auto-fit, minmax(250px, 1fr));
+        repeat(5, minmax(0, 1fr));
 
-    gap: 25px;
+    gap: 18px;
+
+    max-width: 1250px;
+
+    margin: auto;
 }
+
+
+/* FOOD CARD */
 
 .food-card {
     background: white;
 
-    border-radius: 20px;
+    border-radius: 8px;
 
     overflow: hidden;
 
     box-shadow:
-        0 10px 30px rgba(0,0,0,0.08);
+        0 5px 18px rgba(0, 0, 0, 0.13);
+
+    border: 1px solid #e7e9ed;
 
     transition: 0.3s;
 }
 
 .food-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.16);
 }
+
+
+/* FOOD IMAGES */
 
 .food-image {
-    height: 190px;
+    height: 150px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-size: cover;
 
-    font-size: 90px;
+    background-position: center;
 
-    background:
-        linear-gradient(
-            135deg,
-            #caf0f8,
-            #90e0ef
-        );
+    position: relative;
 }
 
+.food-image::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.12),
+        transparent
+    );
+}
+
+
+/* IMAGE FILES */
+
+.fried-tilapia {
+    background-image: url("images/fried-tilapia.jpg");
+}
+
+.grilled-fish {
+    background-image: url("images/grilled-fish.jpg");
+}
+
+.prawns {
+    background-image: url("images/prawns.jpg");
+}
+
+.fish-chips {
+    background-image: url("images/fish-chips.jpg");
+}
+
+.samosa-fish {
+    background-image: url("images/samosa-fish.jpg");
+}
+
+
+/* FOOD INFORMATION */
+
 .food-info {
-    padding: 22px;
+    padding: 14px;
 }
 
 .food-info h3 {
-    font-size: 23px;
-    margin-bottom: 10px;
+    color: #101828;
+
+    font-size: 16px;
+
+    margin-bottom: 7px;
 }
 
 .food-info p {
-    color: #627d98;
-    line-height: 1.5;
-    margin-bottom: 20px;
+    color: #667085;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+    min-height: 35px;
+
+    margin-bottom: 13px;
 }
 
 .food-bottom {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
+    gap: 8px;
 }
 
 .food-bottom strong {
-    color: #0077b6;
-    font-size: 20px;
+    color: #101828;
+
+    font-size: 16px;
 }
 
 .food-bottom button {
     border: none;
 
-    background: #0077b6;
+    background: #147df5;
 
     color: white;
 
-    padding: 10px 17px;
+    padding: 8px 11px;
 
-    border-radius: 20px;
+    border-radius: 5px;
 
     cursor: pointer;
 
+    font-size: 11px;
+
     font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.food-bottom button:hover {
+    background: #0966d8;
 }
 
 
-/* ABOUT */
+/* MENU BUTTON */
+
+.menu-button-container {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
 
 .about {
-    padding: 100px 8%;
+    position: relative;
 
-    background: #023e8a;
+    padding: 100px 7%;
+
+    background:
+        linear-gradient(
+            rgba(2, 20, 42, 0.88),
+            rgba(2, 20, 42, 0.88)
+        ),
+        url("images/fish-hero.jpg");
+
+    background-size: cover;
+
+    background-position: center;
 
     color: white;
 
     text-align: center;
 }
 
-.about > div {
-    max-width: 750px;
+.about-content {
+    position: relative;
+
+    max-width: 760px;
+
     margin: auto;
+}
+
+.section-label {
+    color: #1683ff;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 12px;
 }
 
 .about h2 {
     font-size: 45px;
+
     margin-bottom: 20px;
 }
 
-.about p:last-child {
+.about h2 span {
+    color: #1683ff;
+}
+
+.about-content > p:last-child {
+    color: #e3e8ee;
+
+    font-size: 17px;
+
     line-height: 1.8;
+}
+
+
+/* =========================================================
+   HOW TO ORDER
+   ========================================================= */
+
+.how-to-order {
+    padding: 75px 6%;
+
+    background: #f7f9fc;
+}
+
+.order-steps {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+.order-step {
+    text-align: center;
+
+    background: white;
+
+    padding: 28px 18px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+.step-number {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    background: #147df5;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-weight: bold;
+
     font-size: 18px;
 }
 
+.order-step h3 {
+    margin-bottom: 10px;
 
-/* CONTACT */
-
-.contact {
-    text-align: center;
-    padding: 90px 20px;
+    font-size: 17px;
 }
 
-.contact h2 {
-    font-size: 38px;
+.order-step p {
+    color: #667085;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact-section {
+    position: relative;
+
+    padding: 65px 6%;
+
+    background:
+        linear-gradient(
+            rgba(2, 22, 43, 0.94),
+            rgba(2, 22, 43, 0.94)
+        ),
+        url("images/fish-hero.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    color: white;
+}
+
+.contact-grid {
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+.contact-card {
+    text-align: center;
+
+    padding: 15px;
+}
+
+.contact-icon {
+    font-size: 30px;
+
+    margin-bottom: 12px;
+}
+
+.contact-card h3 {
+    font-size: 17px;
+
+    margin-bottom: 12px;
+}
+
+.contact-card p {
+    color: #d9e2ec;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    min-height: 42px;
+
     margin-bottom: 15px;
 }
 
-.contact p {
-    margin-bottom: 25px;
-    color: #627d98;
+.small-btn,
+.whatsapp-small-btn {
+    display: inline-block;
+
+    padding: 9px 14px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: white;
+}
+
+.small-btn {
+    background: #147df5;
+}
+
+.small-btn:hover {
+    background: #0966d8;
+}
+
+.whatsapp-small-btn {
+    background: #08c64f;
+}
+
+.whatsapp-small-btn:hover {
+    background: #06a943;
 }
 
 
-/* CART */
+/* =========================================================
+   CART MODAL
+   ========================================================= */
 
 .cart-modal {
     position: fixed;
 
     inset: 0;
 
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.7);
 
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     z-index: 2000;
@@ -340,6 +875,7 @@ nav a:hover {
     background: white;
 
     width: 100%;
+
     max-width: 500px;
 
     max-height: 85vh;
@@ -348,57 +884,75 @@ nav a:hover {
 
     padding: 30px;
 
-    border-radius: 20px;
+    border-radius: 15px;
 
     position: relative;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .close-cart {
     position: absolute;
 
     top: 15px;
+
     right: 15px;
 
     border: none;
 
-    background: #eee;
+    background: #eef1f5;
 
     width: 35px;
+
     height: 35px;
 
     border-radius: 50%;
 
     cursor: pointer;
+
+    font-size: 16px;
+}
+
+.close-cart:hover {
+    background: #dce1e7;
 }
 
 .cart-box h2 {
     margin-bottom: 25px;
+
+    color: #101828;
 }
 
 .cart-item {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     padding: 15px 0;
 
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e4e7ec;
 }
 
 .remove-btn {
     border: none;
-    background: #ff4d4d;
+
+    background: #ef4444;
+
     color: white;
 
     padding: 6px 10px;
 
-    border-radius: 10px;
+    border-radius: 6px;
 
     cursor: pointer;
 }
 
 .cart-total {
     display: flex;
+
     justify-content: space-between;
 
     padding: 25px 0;
@@ -413,9 +967,9 @@ nav a:hover {
 
     border: none;
 
-    border-radius: 12px;
+    border-radius: 8px;
 
-    background: #00a86b;
+    background: #08a84f;
 
     color: white;
 
@@ -424,67 +978,20 @@ nav a:hover {
     font-weight: bold;
 
     cursor: pointer;
+
+    transition: 0.3s;
 }
 
 .pay-btn:hover {
-    background: #008f5b;
+    background: #078d43;
 }
 
 
-/* FOOTER */
-
-footer {
-    background: #001f3f;
-
-    color: white;
-
-    text-align: center;
-
-    padding: 25px;
-}
-
-
-/* PHONE */
-
-@media (max-width: 768px) {
-
-    .navbar {
-        padding: 0 4%;
-    }
-
-    nav {
-        display: none;
-    }
-
-    .logo {
-        font-size: 18px;
-    }
-
-    .hero {
-        text-align: center;
-        justify-content: center;
-    }
-
-    .hero h1 {
-        font-size: 55px;
-    }
-
-    .menu-section {
-        padding: 70px 5%;
-    }
-
-    .section-heading h2 {
-        font-size: 30px;
-    }
-
-    .about h2 {
-        font-size: 35px;
-    }
-}
-/* CHECKOUT */
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
 
 .checkout-page {
-
     min-height: 100vh;
 
     padding: 120px 20px 60px;
@@ -498,14 +1005,12 @@ footer {
     background:
         linear-gradient(
             135deg,
-            #caf0f8,
-            #f7fbfc
+            #e8f4ff,
+            #f7fbff
         );
 }
 
-
 .checkout-box {
-
     width: 100%;
 
     max-width: 600px;
@@ -514,31 +1019,25 @@ footer {
 
     padding: 35px;
 
-    border-radius: 25px;
+    border-radius: 18px;
 
     box-shadow:
-        0 15px 40px rgba(0,0,0,0.12);
+        0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
-
 .checkout-box h1 {
-
     color: #023e8a;
 
     margin-bottom: 10px;
 }
 
-
 .checkout-subtitle {
-
-    color: #627d98;
+    color: #667085;
 
     margin-bottom: 30px;
 }
 
-
 .checkout-box label {
-
     display: block;
 
     font-weight: bold;
@@ -548,39 +1047,31 @@ footer {
     margin-bottom: 7px;
 }
 
-
 .checkout-box input {
-
     width: 100%;
 
     padding: 14px;
 
     border: 1px solid #ccd6dd;
 
-    border-radius: 10px;
+    border-radius: 8px;
 
     font-size: 16px;
 
     outline: none;
 }
 
-
 .checkout-box input:focus {
-
-    border-color: #00b4d8;
+    border-color: #147df5;
 }
 
-
 .checkout-box h2 {
-
     margin-top: 30px;
 
     margin-bottom: 15px;
 }
 
-
 .checkout-total {
-
     display: flex;
 
     justify-content: space-between;
@@ -588,4 +1079,295 @@ footer {
     font-size: 21px;
 
     margin: 25px 0;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    background: #020d1c;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px 20px;
+}
+
+.footer-brand {
+    font-weight: bold;
+
+    font-size: 19px;
+
+    margin-bottom: 5px;
+}
+
+.footer-brand span {
+    color: #147df5;
+}
+
+footer p {
+    color: #d9e2ec;
+
+    font-size: 13px;
+}
+
+footer .copyright {
+    margin-top: 15px;
+
+    color: #98a2b3;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    nav {
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .menu-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .order-steps {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        height: 70px;
+
+        padding: 0 4%;
+    }
+
+    .fish-logo {
+        font-size: 30px;
+    }
+
+    .brand strong {
+        font-size: 14px;
+    }
+
+    .brand small {
+        font-size: 9px;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .nav-actions {
+        gap: 7px;
+    }
+
+    .cart-btn {
+        padding: 9px 11px;
+
+        font-size: 11px;
+    }
+
+    .whatsapp-btn {
+        padding: 10px 11px;
+
+        font-size: 10px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 720px;
+
+        height: auto;
+
+        padding: 130px 6% 60px;
+
+        background-position: center;
+    }
+
+    .hero-content {
+        text-align: center;
+
+        margin: auto;
+    }
+
+    .hero h1 {
+        font-size: 58px;
+
+        letter-spacing: -1px;
+    }
+
+    .hero h2 {
+        font-size: 22px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-features {
+        justify-content: center;
+
+        gap: 20px;
+    }
+
+    .feature {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    /* MENU */
+
+    .menu-section {
+        padding: 60px 5%;
+    }
+
+    .section-heading h2 {
+        font-size: 30px;
+    }
+
+    .menu-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 14px;
+    }
+
+    .food-image {
+        height: 145px;
+    }
+
+    .food-info {
+        padding: 12px;
+    }
+
+    .food-info h3 {
+        font-size: 15px;
+    }
+
+    .food-info p {
+        font-size: 11px;
+    }
+
+    .food-bottom {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .food-bottom button {
+        width: 100%;
+    }
+
+
+    /* ABOUT */
+
+    .about {
+        padding: 75px 7%;
+    }
+
+    .about h2 {
+        font-size: 34px;
+    }
+
+    .about-content > p:last-child {
+        font-size: 15px;
+    }
+
+
+    /* HOW TO ORDER */
+
+    .how-to-order {
+        padding: 65px 5%;
+    }
+
+    .order-steps {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* CONTACT */
+
+    .contact-section {
+        padding: 55px 5%;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* CART */
+
+    .cart-box {
+        padding: 25px 20px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .brand small {
+        display: none;
+    }
+
+    .whatsapp-btn {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero h2 {
+        font-size: 19px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .food-image {
+        height: 190px;
+    }
+
 }
